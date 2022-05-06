@@ -23,7 +23,7 @@ async function main() {
   const rewardTokenTicker = "EVO";
   const EVO_CHEF = new ethers.Contract(EVO_CHEF_ADDR, EVO_CHEF_ABI, App.provider);
 
-  const timestamp = Date.now() / 1000
+  const timestamp = Math.round(Date.now() / 1000);
 
   const multiplier = await EVO_CHEF.getMultiplier(timestamp, timestamp+1);
   const rewardPerSecond = await EVO_CHEF.REWARD_PER_SECOND();
@@ -42,10 +42,10 @@ async function main() {
     EVO_CHEF_ABI,
     rewardTokenTicker,
     "GOV_TOKEN",
-      rewardPerSecond,
+      null,
     rewardsPerWeek,
     "pendingReward",
-    [0,1,2,3,4,5,6], // need to specify to prevent ~0 staked tokens from getting omitted
+    [0,1], // need to specify to prevent ~0 staked tokens from getting omitted
   );
 
   hideLoading();
