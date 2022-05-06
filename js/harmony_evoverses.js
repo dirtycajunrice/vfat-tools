@@ -18,9 +18,11 @@ async function main() {
   const timestamp = Date.now() / 1000
 
   const multiplier = await EVO_CHEF.getMultiplier(timestamp, timestamp+1);
+  console.log("Multiplier: ", multiplier);
   const rewardPerSecond = await EVO_CHEF.REWARD_PER_SECOND();
+  console.log("RPS: ", rewardPerSecond);
   const rewardsPerWeek = rewardPerSecond / 1e18 * multiplier * 604800
-
+  console.log("RPW: ", rewardsPerWeek);
   const tokens = {};
   const prices = await getHarmonyPrices();
 
@@ -33,7 +35,7 @@ async function main() {
     EVO_CHEF_ABI,
     rewardTokenTicker,
     "GOV_TOKEN",
-    "REWARD_PER_SECOND",
+    null,
     rewardsPerWeek,
     "pendingReward",
     [0,1,2,3,4,5,6], // need to specify to prevent ~0 staked tokens from getting omitted
